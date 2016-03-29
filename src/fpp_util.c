@@ -89,6 +89,7 @@ unsigned long fpp_util_prefix_to_mask(uint32_t prefix)
     unsigned long no_octets;
 
     no_octets = prefix/8;
+    remainder = prefix%8;
     switch(no_octets) {
     case 0:
 	mask = 0x00000000;
@@ -140,7 +141,7 @@ unsigned long fpp_util_get_rem_mask(unsigned long rem)
 	mask = 0x0000007F;
 	break;
     default:
-	perror("Prefix to mask conversion error");
+	perror("Rem Prefix to mask conversion error");
 	exit(1);
     }
     return mask;

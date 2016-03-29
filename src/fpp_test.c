@@ -2,6 +2,7 @@
 #include<fpp_unibit_tries.h>
 #include<fpp_obj.h>
 #include<fpp_util.h>
+#include<fpp_patricia_driver.h>
 
 int fpp_test_parse_arguments(int c, char **v)
 {
@@ -162,7 +163,8 @@ int fpp_test_conduct_tests()
     for (i = 0; i < count; i++) {
 	addr = fpp_config.lookup_data.d_addr_tab[i];
     
-	fpp_unibit_tries_lookup(addr, i);
+//	fpp_unibit_tries_lookup(addr, i);
+	fpp_patricia_tries_lookup(addr, i);
     }
     fpp_util_print_stats();
     return 0;

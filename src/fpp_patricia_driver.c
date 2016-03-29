@@ -1,7 +1,7 @@
 #include<fpp_common.h>
 #include<fpp_unibit_tries.h>
+#include<fpp_patricia_driver.h>
 
-fpp_patricia_info_t ptrie;
 int fpp_patricia_init(routing_tab_t r)
 {
     int count = 0;
@@ -27,18 +27,18 @@ int fpp_patricia_head_init()
      */
     ptrie.phead = fpp_obj_new_ptree();
     ptrie.phead->p_mlen = 1;
-    ptrie.phead->p_left = phead->p_right = phead;
+    ptrie.phead->p_left = ptrie.phead->p_right = ptrie.phead;
 }
 int fpp_patricia_insert(routing_tab_entry_t re)
 {
-    struct ptree *p;
+    struct ptree *p, *pfind;
     p = fpp_obj_new_ptree();
     p->p_key = re.route.s_addr;
     p->p_m->pm_mask = htonl(fpp_util_prefix_to_mask(re.prefix));
 
-    pfind=pat_search(addr.s_addr, phead);
-    if(pfind->p_key==addr.s_addr) {
-	printf("%f %08x: ", time, addr.s_addr);
+    pfind=pat_search(re.route.s_addr, ptrie.phead);
+    if(pfind->p_key==re.route.s_addr) {
+	printf("%08x: ", re.route.s_addr);
 	printf("Found.\n");
     }
     else {
@@ -53,5 +53,15 @@ int fpp_patricia_insert(routing_tab_entry_t re)
     if (!p) {
 	fprintf(stderr, "Failed on pat_insert\n");
 	exit(1);
+    }
+}
+int fpp_patricia_tries_lookup(struct in_addr addr, uint32_t index)
+{
+    struct ptree *pfind;
+    pfind=pat_search(addr.s_addr, ptrie.phead);
+    if(pfind->p_key == addr.s_addr) {
+	printf("Patricia Found.\n");
+    } else {
+	printf("Patricia Routing miss\n");
     }
 }

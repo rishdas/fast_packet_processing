@@ -1,6 +1,7 @@
 #include<fpp_common.h>
 #include<fpp_unibit_tries.h>
 #include<fpp_obj.h>
+#include<patricia.h>
 void *fpp_malloc (size_t l)
 {
     void *m;
@@ -74,12 +75,12 @@ struct ptree* fpp_obj_new_ptree()
 	exit(1);
     }
     bzero(phead->p_m, sizeof(*phead->p_m));
-    pm = phead->p_m;
-    pm->pm_data = (struct in_addr *)fpp_malloc(sizeof(struct in_addr));
-    if (!pm->pm_data) {
+    phead->p_m = phead->p_m;
+    phead->p_m->pm_data = (struct in_addr *)fpp_malloc(sizeof(struct in_addr));
+    if (!phead->p_m->pm_data) {
 	perror("Allocating p-trie mask's node data");
 	exit(1);
     }
-    bzero(pm->pm_data, sizeof(*pm->pm_data));
+    bzero(phead->p_m->pm_data, sizeof(*phead->p_m->pm_data));
     return phead;
 }

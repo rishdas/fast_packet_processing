@@ -56,18 +56,18 @@ int fpp_test_parse_routing_table()
 	fgets (line, 128, fpp_config.r_table);
     	l = line;
 	
-    	tk = strsep (&l, "\\");
-	printf("%s\t", tk);
+    	tk = strsep (&l, " ");
+	printf("Route: %s\t", tk);
     	fpp_util_fill_in_addr(&(fpp_config.rout_tab.routingtab[count].route),
 			      tk);
 	
     	tk = strsep (&l, " ");
-	printf("%s\t", tk);
+	printf("Prefix: %s\t", tk);
 	fpp_util_fill_prefix(&(fpp_config.rout_tab.routingtab[count].prefix),
 			     tk);
 
 	tk = strsep (&l, "\n");
-	printf("%s\t", tk);
+	printf("Next Hop: %s\t\n", tk);
 	fpp_util_fill_in_addr(&(fpp_config.rout_tab.routingtab[count].next_hop),
 			      tk);
 	

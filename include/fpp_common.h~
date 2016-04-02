@@ -1,0 +1,9 @@
+typedef struct routing_table_
+{
+    uint32 next_hop;
+    uint32 route;
+    uint32 prefix;
+} routing_table_t;
+int fpp_convert_text_to_table(FILE *fp, routing_table_t *rout_table,
+			      int no_routes);
+

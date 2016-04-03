@@ -50,7 +50,7 @@ int fpp_unibit_tries_lookup(struct in_addr addr)
     next_hop.s_addr = 0;
     
     fpp_unibit_tries_reset_tail();
-    inet_pton(AF_INET, "10.2.1.1", &(addr));
+    inet_pton(AF_INET, "192.168.3.8", &(addr));
 
     while(unibit_info.tail != NULL && ctr>=0) {
 
@@ -86,7 +86,6 @@ int fpp_unibit_tries_branch(uint32_t i)
     if (unibit_info.head == NULL) {
 	unibit_info.head = fpp_obj_new_unibit_node();
 	fpp_unibit_tries_reset_tail();
-	return;
     }
     switch(i) {
     case 0:

@@ -7,6 +7,7 @@ int fpp_unibit_tries_init(routing_tab_t r)
     unibit_info.head = NULL;
     unibit_info.tail = NULL;
     while (count < r.count) {
+	printf("Insert :\n");
 	fpp_unibit_tries_insert(r.routingtab[count++]);
     }
     return 0;
@@ -14,12 +15,12 @@ int fpp_unibit_tries_init(routing_tab_t r)
 
 int fpp_unibit_tries_insert(routing_tab_entry_t entry)
 {
-    uint32_t ctr = 32;
+    uint32_t ctr = 31;
     uint32_t bit = 0;
     static int c = 0;
 //    printf("%d Prefix Length: %d\t", c++, entry.prefix);
 
-    while (ctr >= (32 - entry.prefix)) {
+    while (ctr >= (31 - entry.prefix)) {
 	bit = fpp_util_find_bit_kth_pos(ntohl(entry.route.s_addr), ctr);
 	switch(bit) {
 	case 0:
@@ -34,22 +35,27 @@ int fpp_unibit_tries_insert(routing_tab_entry_t entry)
 	}
 	ctr--;
     }
+    printf("\n");
     fpp_unibit_tries_update_tail(entry.next_hop);
     fpp_unibit_tries_reset_tail();
 }
 int fpp_unibit_tries_lookup(struct in_addr addr)
 {
-    int            ctr = 32;
+    int            ctr = 31;
     struct in_addr next_hop;
     char           str[INET_ADDRSTRLEN];
     uint32_t       bit = 0;
+
+    printf("Lookup :\n");
+    next_hop.s_addr = 0;
     
     fpp_unibit_tries_reset_tail();
-    inet_pton(AF_INET, "192.168.3.33", &(addr));
+    inet_pton(AF_INET, "10.2.1.1", &(addr));
 
     while(unibit_info.tail != NULL && ctr>=0) {
 
 	if (unibit_info.tail->is_terminal == TRUE) {
+	    printf("True\n");
 	    next_hop = unibit_info.tail->next_hop;
 	}
 	bit = fpp_util_find_bit_kth_pos(ntohl(addr.s_addr), ctr);
@@ -57,8 +63,10 @@ int fpp_unibit_tries_lookup(struct in_addr addr)
 	switch(bit) {
 	case 0:
 	    unibit_info.tail = unibit_info.tail->z_next;
+	    printf("0 ");
 	    break;
 	case 1:
+	    printf("1 ");
 	    unibit_info.tail = unibit_info.tail->o_next;
 	    break;
 	default:
@@ -67,7 +75,8 @@ int fpp_unibit_tries_lookup(struct in_addr addr)
 	}
 	ctr--;
     }
-    next_hop.s_addr = ntohl(next_hop.s_addr);
+    printf("\n");
+    next_hop.s_addr = next_hop.s_addr;
     inet_ntop(AF_INET, &(next_hop), str, INET_ADDRSTRLEN);
     printf("Next Hop: %s\n", str);
     return 0;
@@ -92,7 +101,7 @@ int fpp_unibit_tries_create_z_node()
     if (unibit_info.tail->z_next == NULL) {
 	unibit_info.tail->z_next = fpp_obj_new_unibit_node();
     }
-//    printf("Zero\n");
+    printf("0 ");
     unibit_info.tail = unibit_info.tail->z_next;
     return 0;
 }
@@ -102,7 +111,7 @@ int fpp_unibit_tries_create_o_node()
 	unibit_info.tail->o_next = fpp_obj_new_unibit_node();
     }
     unibit_info.tail = unibit_info.tail->o_next;
-//    printf("One\n");
+    printf("1 ");
     return 0;
 }
 void fpp_unibit_tries_reset_tail()

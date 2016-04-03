@@ -77,7 +77,9 @@ int fpp_test_parse_routing_table()
 }
 int fpp_test_conduct_tests()
 {
+    struct in_addr addr;
     fpp_unibit_tries_init(fpp_config.rout_tab);
+    fpp_unibit_tries_lookup(addr);
     return 0;
 }
 int main(int argc, char **argv)

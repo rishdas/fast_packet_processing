@@ -30,6 +30,7 @@ int fpp_unibit_tries_insert(routing_tab_entry_t entry)
 	    break;
 	default:
 	    fprintf(stderr, "Fatal Error!!! Bit not 1 or 0\n");
+	    exit(1);
 	}
 	ctr--;
     }
@@ -38,6 +39,37 @@ int fpp_unibit_tries_insert(routing_tab_entry_t entry)
 }
 int fpp_unibit_tries_lookup(struct in_addr addr)
 {
+    int            ctr = 32;
+    struct in_addr next_hop;
+    char           str[INET_ADDRSTRLEN];
+    uint32_t       bit = 0;
+    
+    fpp_unibit_tries_reset_tail();
+    inet_pton(AF_INET, "192.168.3.33", &(addr));
+
+    while(unibit_info.tail != NULL && ctr>=0) {
+
+	if (unibit_info.tail->is_terminal == TRUE) {
+	    next_hop = unibit_info.tail->next_hop;
+	}
+	bit = fpp_util_find_bit_kth_pos(ntohl(addr.s_addr), ctr);
+
+	switch(bit) {
+	case 0:
+	    unibit_info.tail = unibit_info.tail->z_next;
+	    break;
+	case 1:
+	    unibit_info.tail = unibit_info.tail->o_next;
+	    break;
+	default:
+	    fprintf(stderr, "Fatal Error!!! Bit not 1 or 0\n");
+	    exit(1);
+	}
+	ctr--;
+    }
+    next_hop.s_addr = ntohl(next_hop.s_addr);
+    inet_ntop(AF_INET, &(next_hop), str, INET_ADDRSTRLEN);
+    printf("Next Hop: %s\n", str);
     return 0;
 }
 int fpp_unibit_tries_branch(uint32_t i)

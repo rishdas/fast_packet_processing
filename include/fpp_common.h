@@ -17,8 +17,8 @@
 /*Structures*/
 typedef struct routing_tab_entry_
 {
-    in_addr_t next_hop;
-    in_addr_t route;
+    struct in_addr next_hop;
+    struct in_addr route;
     uint32_t  prefix;
 }routing_tab_entry_t;
 

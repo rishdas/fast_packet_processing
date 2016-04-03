@@ -1,4 +1,5 @@
 #include<fpp_common.h>
+#include<fpp_unibit_tries.h>
 #include<fpp_obj.h>
 #include<fpp_util.h>
 

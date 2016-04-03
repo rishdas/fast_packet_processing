@@ -36,8 +36,6 @@ int fpp_test_parse_routing_table()
 {
     char            line[128];
     char            *tk, *l;
-    /* node_info_t     info; */
-    /* route_entry_t   entry; */
     char c;
     int  count = 0;
 
@@ -79,6 +77,7 @@ int fpp_test_parse_routing_table()
 }
 int fpp_test_conduct_tests()
 {
+    fpp_unibit_tries_init(fpp_config.rout_tab);
     return 0;
 }
 int main(int argc, char **argv)

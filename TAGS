@@ -1,0 +1,85 @@
+
+src/fpp_obj.c,427
+void *fpp_malloc fpp_malloc4,72
+routing_tab_entry_t *fpp_obj_new_route_tab(fpp_obj_new_route_tab13,195
+struct in_addr *fpp_obj_new_lookup_test_tab(fpp_obj_new_lookup_test_tab21,382
+fpp_unibit_node_t *fpp_obj_new_unibit_node(fpp_obj_new_unibit_node29,555
+lookup_test_time_arr_t *fpp_obj_new_lookup_time_arr(fpp_obj_new_lookup_time_arr39,797
+lookup_test_time_t *fpp_obj_new_lookup_time(fpp_obj_new_lookup_time49,1050
+
+src/fpp_util.c,110
+void fpp_util_fill_in_addr(4,45
+void fpp_util_fill_prefix(11,173
+uint32_t fpp_util_find_bit_kth_pos(15,251
+
+src/fpp_test.c,214
+int fpp_test_parse_arguments(6,94
+int fpp_test_parse_routing_table(58,1294
+int fpp_test_parse_lookup_file(100,2325
+int fpp_test_lookup_test_init(137,3224
+int fpp_test_conduct_tests(150,3561
+int main(166,3963
+
+src/fpp_unibit_tries.c,316
+int fpp_unibit_tries_init(4,53
+int fpp_unibit_tries_insert(16,300
+int fpp_unibit_tries_lookup(42,917
+int fpp_unibit_tries_branch(84,1927
+int fpp_unibit_tries_create_z_node(98,2216
+int fpp_unibit_tries_create_o_node(107,2443
+void fpp_unibit_tries_reset_tail(116,2670
+int fpp_unibit_tries_update_tail(120,2750
+
+include/fpp_common.h,1286
+#define bool_t 14,233
+#define TRUE 15,253
+#define FALSE 16,276
+typedef struct lookup_test_time_19,316
+    unsigned long time_taken;21,351
+    bool_t is_sec;22,381
+}lookup_test_time_t;lookup_test_time_t23,400
+typedef struct lookup_test_time_arr_25,422
+    lookup_test_time_t *l_time;l_time27,461
+    uint32_t count;28,493
+}lookup_test_time_arr_t;lookup_test_time_arr_t29,513
+typedef struct routing_tab_entry_31,539
+    struct in_addr next_hop;33,575
+    struct in_addr route;34,604
+    uint32_t  prefix;35,630
+}routing_tab_entry_t;routing_tab_entry_t36,652
+typedef struct routing_tab_38,675
+    routing_tab_entry_t *routingtab;routingtab40,705
+    uint32_t count;41,742
+}routing_tab_t;routing_tab_t42,762
+typedef struct lookup_test_tab_44,779
+    struct in_addr *d_addr_tab;d_addr_tab46,813
+    lookup_test_time_arr_t *l_time_arr;l_time_arr47,845
+    uint32_t count;48,885
+    uint32_t a_count;49,905
+}lookup_test_tab_t;lookup_test_tab_t50,927
+typedef struct fpp_config_52,948
+    FILE   *r_table;r_table54,977
+    FILE   *l_file;l_file55,998
+    bool_t debug;56,1018
+    routing_tab_t rout_tab;57,1036
+    lookup_test_tab_t lookup_data;58,1064
+    uint32_t a_count;59,1099
+}fpp_config_t;fpp_config_t60,1121
+fpp_config_t fpp_config;64,1159
+
+include/fpp_unibit_tries.h,477
+typedef struct fpp_unibit_node_4,29
+    bool_t                  is_terminal;6,63
+    struct in_addr          next_hop;7,104
+    struct fpp_unibit_node_ *z_next;z_next8,142
+    struct fpp_unibit_node_ *o_next;o_next9,179
+}fpp_unibit_node_t;fpp_unibit_node_t10,216
+typedef struct fpp_unibit_info_ 12,237
+    fpp_unibit_node_t *head;head13,271
+    fpp_unibit_node_t *tail;tail14,300
+}fpp_unibit_info_t;fpp_unibit_info_t15,329
+fpp_unibit_info_t unibit_info;17,350
+
+include/fpp_util.h,0
+
+include/fpp_obj.h,0

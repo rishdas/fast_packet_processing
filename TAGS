@@ -7,10 +7,12 @@ fpp_unibit_node_t *fpp_obj_new_unibit_node(fpp_obj_new_unibit_node29,555
 lookup_test_time_arr_t *fpp_obj_new_lookup_time_arr(fpp_obj_new_lookup_time_arr39,797
 lookup_test_time_t *fpp_obj_new_lookup_time(fpp_obj_new_lookup_time49,1050
 
-src/fpp_util.c,110
+src/fpp_util.c,188
 void fpp_util_fill_in_addr(4,45
 void fpp_util_fill_prefix(11,173
 uint32_t fpp_util_find_bit_kth_pos(15,251
+bool_t fpp_util_find_time_diff(19,346
+int fpp_util_record_time_taken(33,796
 
 src/fpp_test.c,214
 int fpp_test_parse_arguments(6,94
@@ -18,54 +20,57 @@ int fpp_test_parse_routing_table(58,1294
 int fpp_test_parse_lookup_file(100,2325
 int fpp_test_lookup_test_init(137,3224
 int fpp_test_conduct_tests(150,3561
-int main(166,3963
+int main(166,3966
 
-src/fpp_unibit_tries.c,316
+src/fpp_unibit_tries.c,317
 int fpp_unibit_tries_init(4,53
 int fpp_unibit_tries_insert(16,300
 int fpp_unibit_tries_lookup(42,917
-int fpp_unibit_tries_branch(84,1927
-int fpp_unibit_tries_create_z_node(98,2216
-int fpp_unibit_tries_create_o_node(107,2443
-void fpp_unibit_tries_reset_tail(116,2670
-int fpp_unibit_tries_update_tail(120,2750
+int fpp_unibit_tries_branch(91,2160
+int fpp_unibit_tries_create_z_node(105,2449
+int fpp_unibit_tries_create_o_node(114,2676
+void fpp_unibit_tries_reset_tail(123,2903
+int fpp_unibit_tries_update_tail(127,2983
 
-include/fpp_common.h,1286
+include/fpp_common.h,1375
 #define bool_t 14,233
 #define TRUE 15,253
 #define FALSE 16,276
-typedef struct lookup_test_time_19,316
-    unsigned long time_taken;21,351
-    bool_t is_sec;22,381
-}lookup_test_time_t;lookup_test_time_t23,400
-typedef struct lookup_test_time_arr_25,422
-    lookup_test_time_t *l_time;l_time27,461
-    uint32_t count;28,493
-}lookup_test_time_arr_t;lookup_test_time_arr_t29,513
-typedef struct routing_tab_entry_31,539
-    struct in_addr next_hop;33,575
-    struct in_addr route;34,604
-    uint32_t  prefix;35,630
-}routing_tab_entry_t;routing_tab_entry_t36,652
-typedef struct routing_tab_38,675
-    routing_tab_entry_t *routingtab;routingtab40,705
-    uint32_t count;41,742
-}routing_tab_t;routing_tab_t42,762
-typedef struct lookup_test_tab_44,779
-    struct in_addr *d_addr_tab;d_addr_tab46,813
-    lookup_test_time_arr_t *l_time_arr;l_time_arr47,845
-    uint32_t count;48,885
-    uint32_t a_count;49,905
-}lookup_test_tab_t;lookup_test_tab_t50,927
-typedef struct fpp_config_52,948
-    FILE   *r_table;r_table54,977
-    FILE   *l_file;l_file55,998
-    bool_t debug;56,1018
-    routing_tab_t rout_tab;57,1036
-    lookup_test_tab_t lookup_data;58,1064
-    uint32_t a_count;59,1099
-}fpp_config_t;fpp_config_t60,1121
-fpp_config_t fpp_config;64,1159
+typedef enum lpm_algo_ 18,301
+    UNIBIT_TRIES19,326
+}lpm_algo_t;lpm_algo_t20,343
+typedef struct lookup_test_time_23,372
+    unsigned long time_taken;25,407
+    bool_t is_sec;26,437
+}lookup_test_time_t;lookup_test_time_t27,456
+typedef struct lookup_test_time_arr_29,478
+    lookup_test_time_t *l_time;l_time31,517
+    uint32_t count;32,549
+}lookup_test_time_arr_t;lookup_test_time_arr_t33,569
+typedef struct routing_tab_entry_35,595
+    struct in_addr next_hop;37,631
+    struct in_addr route;38,660
+    uint32_t  prefix;39,686
+}routing_tab_entry_t;routing_tab_entry_t40,708
+typedef struct routing_tab_42,731
+    routing_tab_entry_t *routingtab;routingtab44,761
+    uint32_t count;45,798
+}routing_tab_t;routing_tab_t46,818
+typedef struct lookup_test_tab_48,835
+    struct in_addr *d_addr_tab;d_addr_tab50,869
+    lookup_test_time_arr_t *l_time_arr;l_time_arr51,901
+    uint32_t count;52,941
+    uint32_t a_count;53,961
+}lookup_test_tab_t;lookup_test_tab_t54,983
+typedef struct fpp_config_56,1004
+    FILE   *r_table;r_table58,1033
+    FILE   *l_file;l_file59,1054
+    bool_t debug;60,1074
+    routing_tab_t rout_tab;61,1092
+    lookup_test_tab_t lookup_data;62,1120
+    uint32_t a_count;63,1155
+}fpp_config_t;fpp_config_t64,1177
+fpp_config_t fpp_config;68,1215
 
 include/fpp_unibit_tries.h,477
 typedef struct fpp_unibit_node_4,29

@@ -19,7 +19,7 @@ fpp_unibit_info_t unibit_info;
 /*Function Signatures*/
 int fpp_unibit_tries_init(routing_tab_t r);
 int fpp_unibit_tries_insert(routing_tab_entry_t entry);
-int fpp_unibit_tries_lookup(struct in_addr addr);
+int fpp_unibit_tries_lookup(struct in_addr addr, uint32_t index);
 int fpp_unibit_tries_branch(uint32_t i);
 void fpp_unibit_tries_reset_tail();
 int fpp_unibit_tries_create_z_node();

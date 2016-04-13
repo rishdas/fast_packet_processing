@@ -15,6 +15,10 @@
 #define TRUE (bool_t)1
 #define FALSE (bool_t)0
 
+typedef enum lpm_algo_ {
+    UNIBIT_TRIES
+}lpm_algo_t;
+
 /*Structures*/
 typedef struct lookup_test_time_
 {

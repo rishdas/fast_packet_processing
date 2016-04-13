@@ -159,7 +159,7 @@ int fpp_test_conduct_tests()
     for (i = 0; i < count; i++) {
 	addr = fpp_config.lookup_data.d_addr_tab[i];
     
-	fpp_unibit_tries_lookup(addr);
+	fpp_unibit_tries_lookup(addr, i);
     }
     return 0;
 }

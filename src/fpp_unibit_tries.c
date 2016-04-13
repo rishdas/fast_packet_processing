@@ -39,16 +39,20 @@ int fpp_unibit_tries_insert(routing_tab_entry_t entry)
     fpp_unibit_tries_update_tail(entry.next_hop);
     fpp_unibit_tries_reset_tail();
 }
-int fpp_unibit_tries_lookup(struct in_addr addr)
+int fpp_unibit_tries_lookup(struct in_addr addr, uint32_t index)
 {
     int            ctr = 31;
     struct in_addr next_hop;
     char           str[INET_ADDRSTRLEN];
     uint32_t       bit = 0;
+    struct timeval start_time;
+    struct timeval finish_time;
+
 
     printf("Lookup :\n");
     next_hop.s_addr = 0;
-    
+
+    gettimeofday(&start_time, 0);
     fpp_unibit_tries_reset_tail();
 //    inet_pton(AF_INET, "192.168.3.8", &(addr));
     
@@ -75,7 +79,14 @@ int fpp_unibit_tries_lookup(struct in_addr addr)
 	}
 	ctr--;
     }
+    gettimeofday(&finish_time, 0);
+    fpp_util_record_time_taken(start_time, finish_time,
+    			       UNIBIT_TRIES, index);
     printf("\n");
+    if (next_hop.s_addr == 0) {
+	printf("Routing Hit miss\n", str);
+	return 0;
+    }
     next_hop.s_addr = next_hop.s_addr;
     inet_ntop(AF_INET, &(next_hop), str, INET_ADDRSTRLEN);
     printf("Next Hop: %s\n", str);

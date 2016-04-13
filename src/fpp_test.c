@@ -137,11 +137,11 @@ int fpp_test_parse_lookup_file()
 int fpp_test_lookup_test_init()
 {
     int i = 0;
-    fpp_config.lookup_data.l_time_arr =
-	fpp_obj_new_lookup_time_arr();
+    /* fpp_config.lookup_data.l_time_arr = */
+    /* 	fpp_obj_new_lookup_time_arr(); */
     for (i = 0; i < fpp_config.a_count; i++) {
-	fpp_config.lookup_data.l_time_arr[i].l_time =
-	    fpp_obj_new_lookup_time();
+	/* fpp_config.lookup_data.l_time_arr[i].l_time = */
+	/*     fpp_obj_new_lookup_time(); */
 	fpp_config.lookup_data.l_time_arr[i].count =
 	    fpp_config.lookup_data.count;
 
@@ -162,6 +162,7 @@ int fpp_test_conduct_tests()
     
 	fpp_unibit_tries_lookup(addr, i);
     }
+    fpp_util_print_stats();
     return 0;
 }
 int main(int argc, char **argv)

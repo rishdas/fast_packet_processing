@@ -15,6 +15,7 @@
 #define TRUE (bool_t)1
 #define FALSE (bool_t)0
 #define MAX_ALGO 10
+#define MAX_LOOKUP_ENTRY 20
 
 typedef enum lpm_algo_ {
     UNIBIT_TRIES
@@ -29,7 +30,7 @@ typedef struct lookup_test_time_
 
 typedef struct lookup_test_time_arr_
 {
-    lookup_test_time_t *l_time;
+    lookup_test_time_t l_time[MAX_LOOKUP_ENTRY];
     uint32_t count;
 }lookup_test_time_arr_t;
 
@@ -49,7 +50,7 @@ typedef struct routing_tab_
 typedef struct lookup_test_tab_
 {
     struct in_addr *d_addr_tab;
-    lookup_test_time_arr_t *l_time_arr;
+    lookup_test_time_arr_t l_time_arr[MAX_ALGO];
     uint32_t count;
     uint32_t a_count;
 }lookup_test_tab_t;

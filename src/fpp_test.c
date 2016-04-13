@@ -144,6 +144,7 @@ int fpp_test_lookup_test_init()
 	    fpp_obj_new_lookup_time();
 	fpp_config.lookup_data.l_time_arr[i].count =
 	    fpp_config.lookup_data.count;
+
     }
 }
 

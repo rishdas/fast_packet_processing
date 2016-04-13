@@ -39,7 +39,7 @@ fpp_unibit_node_t *fpp_obj_new_unibit_node()
 lookup_test_time_arr_t *fpp_obj_new_lookup_time_arr()
 {
     lookup_test_time_arr_t *ret;
-    uint32_t count = fpp_config.lookup_data.a_count;
+    uint32_t count = fpp_config.a_count;
 
     ret = (lookup_test_time_arr_t *)
 	fpp_malloc(count*sizeof(lookup_test_time_arr_t));

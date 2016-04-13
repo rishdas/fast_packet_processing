@@ -14,6 +14,7 @@
 #define bool_t char
 #define TRUE (bool_t)1
 #define FALSE (bool_t)0
+#define MAX_ALGO 10
 
 typedef enum lpm_algo_ {
     UNIBIT_TRIES

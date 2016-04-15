@@ -15,7 +15,7 @@
 #define TRUE (bool_t)1
 #define FALSE (bool_t)0
 #define MAX_ALGO 10
-#define MAX_LOOKUP_ENTRY 20
+#define MAX_LOOKUP_ENTRY 200
 
 typedef enum lpm_algo_ {
     UNIBIT_TRIES

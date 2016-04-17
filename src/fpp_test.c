@@ -28,7 +28,7 @@ int fpp_test_parse_arguments(int c, char **v)
 	}
     }
     /*TODO Remove*/
-    fpp_config.a_count = 1;
+    fpp_config.a_count = 2;
     
     if (!r_table){
 	fprintf (stderr,"%s: must give the routing table file!\n",v[0]);
@@ -156,6 +156,8 @@ int fpp_test_conduct_tests()
     uint32_t       count = fpp_config.lookup_data.count;
 
     fpp_unibit_tries_init(fpp_config.rout_tab);
+    fpp_patricia_init(fpp_config.rout_tab);
+    
     printf("Count: %u\n", count);
     for (i = 0; i < count; i++) {
 	addr = fpp_config.lookup_data.d_addr_tab[i];

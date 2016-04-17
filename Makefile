@@ -16,4 +16,4 @@ $(PROG):
 
 clean:
 	make -C src clean
-	rm -f *.o *~ $(PROG) core *.log
+	rm -f *.o *~ include/*~ $(PROG) core *.log

@@ -82,3 +82,66 @@ int fpp_util_print_stats()
 	printf("Avg time(in usecs): %u\n", avg);
     }
 }
+unsigned long fpp_util_prefix_to_mask(uint32_t prefix)
+{
+    unsigned long mask;
+    unsigned long remainder;
+    unsigned long no_octets;
+
+    no_octets = prefix/8;
+    switch(no_octets) {
+    case 0:
+	mask = 0x00000000;
+	break;
+    case 1:
+	mask = 0xff000000;
+	break;
+    case 2:
+	mask = 0xffff0000;
+	break;
+    case 3:
+	mask = 0xffffff00;
+	break;
+    case 4:
+	mask = 0xffffffff;
+	return mask;
+    default:
+	perror("Prefix to mask conversion error");
+	exit(1);
+    }
+    mask |= fpp_util_get_rem_mask(remainder);
+}
+unsigned long fpp_util_get_rem_mask(unsigned long rem)
+{
+    unsigned long mask = 0x00000000;
+    switch(rem) {
+    case 0:
+	mask = 0x00000000;
+	break;
+    case 1:
+	mask = 0x00000001;
+	break;
+    case 2:
+	mask = 0x00000003;
+	break;
+    case 3:
+	mask = 0x00000007;
+	break;
+    case 4:
+	mask = 0x0000000F;
+	break;
+    case 5:
+	mask = 0x0000001F;
+	break;
+    case 6:
+	mask = 0x0000003F;
+	break;
+    case 7:
+	mask = 0x0000007F;
+	break;
+    default:
+	perror("Prefix to mask conversion error");
+	exit(1);
+    }
+    return mask;
+}

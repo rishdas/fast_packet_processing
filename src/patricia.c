@@ -25,6 +25,9 @@
 #include <stdlib.h>	/* free(), malloc() */
 #include <string.h>	/* bcopy() */
 #include "patricia.h"
+#include<sys/socket.h>
+#include<netinet/in.h>
+#include<arpa/inet.h>
 
 
 /*
@@ -307,6 +310,15 @@ pat_remove(struct ptree *n, struct ptree *head)
 	return 1;
 }
 
+void fpp_util_print_addr(unsigned long s_addr)
+{
+    char           str[INET_ADDRSTRLEN];
+    struct in_addr addr;
+
+    addr.s_addr = s_addr;
+    inet_ntop(AF_INET, &(addr), str, INET_ADDRSTRLEN);
+    printf("Addr: %17s \n", str);
+}
 
 /*
  * Find an entry given a key in a Patricia trie.
@@ -327,6 +339,8 @@ pat_search(unsigned long key, struct ptree *head)
 		/*
 		 * Keep track of most complete match so far.
 		 */
+	    /* fpp_util_print_addr(t->p_key); */
+	    /* fpp_util_print_addr(key & t->p_m->pm_mask); */
 		if (t->p_key == (key & t->p_m->pm_mask)) {
 			p = t;
 		}

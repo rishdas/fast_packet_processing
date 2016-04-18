@@ -39,11 +39,10 @@ int fpp_util_record_time_taken(struct timeval start_time,
     
     is_sec = fpp_util_find_time_diff(start_time, finish_time,
 				     &time_taken);
-    printf("Index: %u\n", index);
     if (is_sec) {
-	printf("Time Taken(in secs): %u\n", time_taken);
+	printf("Time Taken(in secs): %10u ", time_taken);
     } else {
-	printf("Time Taken(in usecs): %u\n", time_taken);
+	printf("Time Taken(in usecs): %10u ", time_taken);
     }
     fpp_config.lookup_data.l_time_arr[al].l_time[index].time_taken
     	= time_taken;
@@ -110,7 +109,8 @@ unsigned long fpp_util_prefix_to_mask(uint32_t prefix)
 	perror("Prefix to mask conversion error");
 	exit(1);
     }
-    mask |= fpp_util_get_rem_mask(remainder);
+    /*TODO fix it*/
+//    mask = mask | fpp_util_get_rem_mask(remainder);
 }
 unsigned long fpp_util_get_rem_mask(unsigned long rem)
 {
@@ -146,3 +146,12 @@ unsigned long fpp_util_get_rem_mask(unsigned long rem)
     }
     return mask;
 }
+/* void fpp_util_print_addr(unsigned long s_addr) */
+/* { */
+/*     char           str[INET_ADDRSTRLEN]; */
+/*     struct in_addr addr; */
+
+/*     addr.s_addr = s_addr; */
+/*     inet_ntop(AF_INET, &(addr), str, INET_ADDRSTRLEN); */
+/*     printf("Addr: %17s \n", str); */
+/* } */

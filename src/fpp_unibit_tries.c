@@ -7,7 +7,6 @@ int fpp_unibit_tries_init(routing_tab_t r)
     unibit_info.head = NULL;
     unibit_info.tail = NULL;
     while (count < r.count) {
-	printf("Insert :\n");
 	fpp_unibit_tries_insert(r.routingtab[count++]);
     }
     return 0;
@@ -35,7 +34,6 @@ int fpp_unibit_tries_insert(routing_tab_entry_t entry)
 	}
 	ctr--;
     }
-    printf("\n");
     fpp_unibit_tries_update_tail(entry.next_hop);
     fpp_unibit_tries_reset_tail();
 }
@@ -48,18 +46,18 @@ int fpp_unibit_tries_lookup(struct in_addr addr, uint32_t index)
     struct timeval start_time;
     struct timeval finish_time;
 
-
-    printf("Lookup :\n");
     next_hop.s_addr = 0;
 
     gettimeofday(&start_time, 0);
     fpp_unibit_tries_reset_tail();
 //    inet_pton(AF_INET, "192.168.3.8", &(addr));
-    
+
+    inet_ntop(AF_INET, &(addr), str, INET_ADDRSTRLEN);
+    printf("Lookup String: %17s ", str);
+
     while(unibit_info.tail != NULL && ctr>=0) {
 
 	if (unibit_info.tail->is_terminal == TRUE) {
-	    printf("True\n");
 	    next_hop = unibit_info.tail->next_hop;
 	}
 	bit = fpp_util_find_bit_kth_pos(ntohl(addr.s_addr), ctr);
@@ -67,10 +65,8 @@ int fpp_unibit_tries_lookup(struct in_addr addr, uint32_t index)
 	switch(bit) {
 	case 0:
 	    unibit_info.tail = unibit_info.tail->z_next;
-	    printf("0 ");
 	    break;
 	case 1:
-	    printf("1 ");
 	    unibit_info.tail = unibit_info.tail->o_next;
 	    break;
 	default:
@@ -82,7 +78,6 @@ int fpp_unibit_tries_lookup(struct in_addr addr, uint32_t index)
     gettimeofday(&finish_time, 0);
     fpp_util_record_time_taken(start_time, finish_time,
     			       UNIBIT_TRIES, index);
-    printf("\n");
     if (next_hop.s_addr == 0) {
 	printf("Routing Hit miss\n", str);
 	return 0;
@@ -111,7 +106,6 @@ int fpp_unibit_tries_create_z_node()
     if (unibit_info.tail->z_next == NULL) {
 	unibit_info.tail->z_next = fpp_obj_new_unibit_node();
     }
-    printf("0 ");
     unibit_info.tail = unibit_info.tail->z_next;
     return 0;
 }
@@ -121,7 +115,6 @@ int fpp_unibit_tries_create_o_node()
 	unibit_info.tail->o_next = fpp_obj_new_unibit_node();
     }
     unibit_info.tail = unibit_info.tail->o_next;
-    printf("1 ");
     return 0;
 }
 void fpp_unibit_tries_reset_tail()

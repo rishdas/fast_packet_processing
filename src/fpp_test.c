@@ -124,7 +124,7 @@ int fpp_test_parse_lookup_file()
     	l = line;
 	
     	tk = strsep (&l, "\n");
-	printf("Lookup String: %17s\n", tk);
+//	printf("Lookup String: %17s\n", tk);
     	fpp_util_fill_in_addr(&(fpp_config.lookup_data.d_addr_tab[count]),
 			      tk);
 	count++;
@@ -163,7 +163,7 @@ int fpp_test_conduct_tests()
     for (i = 0; i < count; i++) {
 	addr = fpp_config.lookup_data.d_addr_tab[i];
     
-//	fpp_unibit_tries_lookup(addr, i);
+	fpp_unibit_tries_lookup(addr, i);
 	fpp_patricia_tries_lookup(addr, i);
     }
     fpp_util_print_stats();

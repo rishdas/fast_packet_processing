@@ -1,14 +1,4 @@
 
-src/fpp_util.c,315
-void fpp_util_fill_in_addr(4,45
-void fpp_util_fill_prefix(11,173
-uint32_t fpp_util_find_bit_kth_pos(15,251
-bool_t fpp_util_find_time_diff(19,346
-int fpp_util_record_time_taken(33,796
-int fpp_util_print_stats(54,1417
-unsigned long fpp_util_prefix_to_mask(85,2198
-unsigned long fpp_util_get_rem_mask(115,2741
-
 src/fpp_obj.c,468
 void *fpp_malloc fpp_malloc5,93
 routing_tab_entry_t *fpp_obj_new_route_tab(fpp_obj_new_route_tab14,216
@@ -18,69 +8,48 @@ lookup_test_time_arr_t *fpp_obj_new_lookup_time_arr(fpp_obj_new_lookup_time_arr
 lookup_test_time_t *fpp_obj_new_lookup_time(fpp_obj_new_lookup_time50,1059
 struct ptree* fpp_obj_new_ptree(61,1306
 
-src/fpp_unibit_tries.c,317
-int fpp_unibit_tries_init(4,53
-int fpp_unibit_tries_insert(16,300
-int fpp_unibit_tries_lookup(42,917
-int fpp_unibit_tries_branch(95,2249
-int fpp_unibit_tries_create_z_node(109,2538
-int fpp_unibit_tries_create_o_node(118,2765
-void fpp_unibit_tries_reset_tail(127,2992
-int fpp_unibit_tries_update_tail(131,3072
+src/fpp_util.c,313
+void fpp_util_fill_in_addr(4,45
+void fpp_util_fill_prefix(11,173
+uint32_t fpp_util_find_bit_kth_pos(15,251
+bool_t fpp_util_find_time_diff(19,346
+int fpp_util_record_time_taken(33,796
+int fpp_util_print_stats(53,1385
+unsigned int fpp_util_prefix_to_mask(84,2166
+unsigned int fpp_util_get_rem_mask(118,2785
 
 src/fpp_test.c,215
 int fpp_test_parse_arguments(7,126
 int fpp_test_parse_routing_table(59,1326
 int fpp_test_parse_lookup_file(101,2357
-int fpp_test_lookup_test_init(138,3256
-int fpp_test_conduct_tests(152,3622
-int main(172,4143
+int fpp_test_lookup_test_init(138,3258
+int fpp_test_conduct_tests(152,3624
+int main(172,4190
 
-src/patricia.c,110
-bit(36,903
-pat_count(47,1064
-insertR(66,1355
-pat_insert(92,1932
-pat_remove(193,3810
-pat_search(315,6123
+src/fpp_unibit_tries.c,317
+int fpp_unibit_tries_init(4,53
+int fpp_unibit_tries_insert(15,277
+int fpp_unibit_tries_lookup(40,876
+int fpp_unibit_tries_branch(90,2195
+int fpp_unibit_tries_create_z_node(104,2484
+int fpp_unibit_tries_create_o_node(112,2693
+void fpp_unibit_tries_reset_tail(120,2902
+int fpp_unibit_tries_update_tail(124,2982
 
 src/fpp_patricia_driver.c,135
 int fpp_patricia_init(5,85
-int fpp_patricia_head_init(16,370
-int fpp_patricia_insert(32,1006
-int fpp_patricia_tries_lookup(58,1642
+int fpp_patricia_head_init(16,373
+int fpp_patricia_insert(32,1009
+int fpp_patricia_tries_lookup(60,1807
 
-include/fpp_patricia_driver.h,176
-typedef struct fpp_patricia_info_{fpp_patricia_info_3,45
-    struct ptree *phead;phead4,80
-}fpp_patricia_info_t;fpp_patricia_info_t5,105
-fpp_patricia_info_t ptrie;7,128
-
-include/patricia.h,331
-#define _PATRICIA_H_26,708
-struct ptree_mask 34,872
-	unsigned long pm_mask;35,892
-	void *pm_data;pm_data36,916
-struct ptree 43,967
-	unsigned long p_key;44,982
-	struct ptree_mask *p_m;p_m45,1021
-	unsigned char p_mlen;46,1065
-	char p_b;47,1111
-	struct ptree *p_left;p_left48,1144
-	struct ptree *p_right;p_right49,1188
-
-include/fpp_unibit_tries.h,477
-typedef struct fpp_unibit_node_4,29
-    bool_t                  is_terminal;6,63
-    struct in_addr          next_hop;7,104
-    struct fpp_unibit_node_ *z_next;z_next8,142
-    struct fpp_unibit_node_ *o_next;o_next9,179
-}fpp_unibit_node_t;fpp_unibit_node_t10,216
-typedef struct fpp_unibit_info_ 12,237
-    fpp_unibit_node_t *head;head13,271
-    fpp_unibit_node_t *tail;tail14,300
-}fpp_unibit_info_t;fpp_unibit_info_t15,329
-fpp_unibit_info_t unibit_info;17,350
+src/patricia.c,146
+bit(39,1016
+pat_count(50,1176
+insertR(69,1467
+pat_insert(95,2044
+pat_remove(204,4196
+void fpp_util_print_addr(321,6437
+pat_search(335,6739
 
 include/fpp_common.h,1434
 #define bool_t 14,233
@@ -124,6 +93,38 @@ typedef struct fpp_config_58,1079
 }fpp_config_t;fpp_config_t66,1252
 fpp_config_t fpp_config;70,1290
 
-include/fpp_obj.h,0
+include/fpp_patricia_driver.h,176
+typedef struct fpp_patricia_info_{fpp_patricia_info_3,45
+    struct ptree *phead;phead4,80
+}fpp_patricia_info_t;fpp_patricia_info_t5,105
+fpp_patricia_info_t ptrie;7,128
+
+include/patricia.h,329
+#define _PATRICIA_H_26,708
+struct ptree_mask 34,872
+	unsigned int pm_mask;35,892
+	void *pm_data;pm_data36,915
+struct ptree 43,966
+	unsigned int p_key;44,981
+	struct ptree_mask *p_m;p_m45,1019
+	unsigned char p_mlen;46,1063
+	char p_b;47,1109
+	struct ptree *p_left;p_left48,1142
+	struct ptree *p_right;p_right49,1186
+
+include/fpp_unibit_tries.h,477
+typedef struct fpp_unibit_node_4,29
+    bool_t                  is_terminal;6,63
+    struct in_addr          next_hop;7,104
+    struct fpp_unibit_node_ *z_next;z_next8,142
+    struct fpp_unibit_node_ *o_next;o_next9,179
+}fpp_unibit_node_t;fpp_unibit_node_t10,216
+typedef struct fpp_unibit_info_ 12,237
+    fpp_unibit_node_t *head;head13,271
+    fpp_unibit_node_t *tail;tail14,300
+}fpp_unibit_info_t;fpp_unibit_info_t15,329
+fpp_unibit_info_t unibit_info;17,350
 
 include/fpp_util.h,0
+
+include/fpp_obj.h,0

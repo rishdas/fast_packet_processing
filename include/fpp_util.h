@@ -16,5 +16,5 @@ int fpp_util_record_time_taken(struct timeval start_time,
 			       struct timeval finish_time,
 			       lpm_algo_t al, uint32_t index);
 int fpp_util_print_stats();
-unsigned long fpp_util_prefix_to_mask(uint32_t prefix);
-unsigned long fpp_util_get_rem_mask(unsigned long rem);
+unsigned int fpp_util_prefix_to_mask(uint32_t prefix);
+unsigned int fpp_util_get_rem_mask(unsigned int rem);

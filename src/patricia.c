@@ -29,14 +29,14 @@
 #include<netinet/in.h>
 #include<arpa/inet.h>
 
-
+void fpp_util_print_addr(unsigned int s_addr);
 /*
  * Private function used to return whether
  * or not bit 'i' is set in 'key'.
  */
 static __inline
-unsigned long
-bit(int i, unsigned long key)
+unsigned int
+bit(int i, unsigned int key)
 {
 	return key & (1 << (31-i));
 }
@@ -109,10 +109,15 @@ pat_insert(struct ptree *n, struct ptree *head)
 	/*
 	 * Find closest matching leaf node.
 	 */
+	printf("Insert: ");
 	t = head;
 	do {
+	        fpp_util_print_addr(t->p_key);
+		printf(" 0x%x ", t->p_m->pm_mask);
 		i = t->p_b;
+		printf("Bit check: %d ", i);
 		t = bit(t->p_b, n->p_key) ? t->p_right : t->p_left;
+		printf("Bit check: %d \n", t->p_b);
 	} while (i < t->p_b);
 
 	/*
@@ -177,6 +182,9 @@ pat_insert(struct ptree *n, struct ptree *head)
 	 */
 	for (i=1; i < 32 && bit(i, n->p_key) == bit(i, t->p_key); i++); 
 
+	fpp_util_print_addr(t->p_key);
+	fpp_util_print_addr(n->p_key);
+	printf("First Bit that differs: %d ", i);
 	/*
 	 * Recursive step.
 	 */
@@ -310,21 +318,21 @@ pat_remove(struct ptree *n, struct ptree *head)
 	return 1;
 }
 
-void fpp_util_print_addr(unsigned long s_addr)
+void fpp_util_print_addr(unsigned int s_addr)
 {
     char           str[INET_ADDRSTRLEN];
     struct in_addr addr;
 
     addr.s_addr = s_addr;
     inet_ntop(AF_INET, &(addr), str, INET_ADDRSTRLEN);
-    printf("Addr: %17s \n", str);
+    printf("Addr: %17s ", str);
 }
 
 /*
  * Find an entry given a key in a Patricia trie.
  */
 struct ptree *
-pat_search(unsigned long key, struct ptree *head)
+pat_search(unsigned int key, struct ptree *head)
 {
 	struct ptree *p = 0, *t = head;
 	int i;
@@ -335,17 +343,22 @@ pat_search(unsigned long key, struct ptree *head)
 	/*
 	 * Find closest matching leaf node.
 	 */
+	printf("\n Search Key: ");
+	fpp_util_print_addr(key);
 	do {
 		/*
 		 * Keep track of most complete match so far.
 		 */
-	    /* fpp_util_print_addr(t->p_key); */
-	    /* fpp_util_print_addr(key & t->p_m->pm_mask); */
+	    fpp_util_print_addr(t->p_key);
+//	    fpp_util_print_addr(key);
+//	    fpp_util_print_addr(key & t->p_m->pm_mask);
+	    printf(" 0x%x ", t->p_m->pm_mask);
 		if (t->p_key == (key & t->p_m->pm_mask)) {
 			p = t;
 		}
 		
 		i = t->p_b;
+		printf("Bit check: %d \n", i);
 		t = bit(t->p_b, key) ? t->p_right : t->p_left;
 	} while (i < t->p_b);
 

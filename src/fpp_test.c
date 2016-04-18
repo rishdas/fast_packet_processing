@@ -158,7 +158,7 @@ int fpp_test_conduct_tests()
 
     fpp_unibit_tries_init(fpp_config.rout_tab);
     fpp_patricia_init(fpp_config.rout_tab);
-    
+    printf("\nSizeof: %u\n", sizeof(unsigned int));
     printf("Count: %u\n", count);
     for (i = 0; i < count; i++) {
 	addr = fpp_config.lookup_data.d_addr_tab[i];

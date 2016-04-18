@@ -81,14 +81,15 @@ int fpp_util_print_stats()
 	printf("Avg time(in usecs): %u\n", avg);
     }
 }
-unsigned long fpp_util_prefix_to_mask(uint32_t prefix)
+unsigned int fpp_util_prefix_to_mask(uint32_t prefix)
 {
-    unsigned long mask;
-    unsigned long remainder;
-    unsigned long no_octets;
+    unsigned int mask;
+    unsigned int remainder;
+    unsigned int no_octets;
 
     no_octets = prefix/8;
     remainder = prefix%8;
+
     switch(no_octets) {
     case 0:
 	mask = 0x00000000;
@@ -109,12 +110,14 @@ unsigned long fpp_util_prefix_to_mask(uint32_t prefix)
 	perror("Prefix to mask conversion error");
 	exit(1);
     }
+    printf(" MASK: 0x%x ", mask);
+    return mask;
     /*TODO fix it*/
 //    mask = mask | fpp_util_get_rem_mask(remainder);
 }
-unsigned long fpp_util_get_rem_mask(unsigned long rem)
+unsigned int fpp_util_get_rem_mask(unsigned int rem)
 {
-    unsigned long mask = 0x00000000;
+    unsigned int mask = 0x00000000;
     switch(rem) {
     case 0:
 	mask = 0x00000000;

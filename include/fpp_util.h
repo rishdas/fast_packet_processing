@@ -18,3 +18,4 @@ int fpp_util_record_time_taken(struct timeval start_time,
 int fpp_util_print_stats();
 unsigned int fpp_util_prefix_to_mask(uint32_t prefix);
 unsigned int fpp_util_get_rem_mask(unsigned int rem);
+void fpp_util_print_in_addr(unsigned int s_addr);

@@ -34,10 +34,8 @@ int fpp_patricia_insert(routing_tab_entry_t re)
     struct ptree *p, *pfind;
     p = fpp_obj_new_ptree();
     p->p_key = re.route.s_addr;
-    /* printf("Mask: %x Prefix: %u ", fpp_util_prefix_to_mask(re.prefix), */
-    /* 	   re.prefix); */
     p->p_m->pm_mask = htonl(fpp_util_prefix_to_mask(re.prefix));
-//    p->p_m->pm_mask = fpp_util_prefix_to_mask(re.prefix);
+    p->p_m->pm_data = fpp_obj_new_in_addr(re.next_hop);
     pfind=pat_search(re.route.s_addr, ptrie.phead);
     if(pfind->p_key==re.route.s_addr) {
 	printf("%08x: ", re.route.s_addr);
@@ -48,8 +46,6 @@ int fpp_patricia_insert(routing_tab_entry_t re)
 	 * Insert the node.
 	 * Returns the node it inserted on success, 0 on failure.
 	 */
-	//printf("%08x: ", addr.s_addr);
-	//printf("Inserted.\n");
 	p = pat_insert(p, ptrie.phead);
     }
     if (!p) {
@@ -61,24 +57,29 @@ int fpp_patricia_tries_lookup(struct in_addr addr, uint32_t index)
 {
     struct ptree   *pfind;
     char           str[INET_ADDRSTRLEN];
-    struct in_addr r_addr;
-    pfind=pat_search(addr.s_addr, ptrie.phead);
+    struct timeval start_time;
+    struct timeval finish_time;
 
     inet_ntop(AF_INET, &(addr), str, INET_ADDRSTRLEN);
-    /* printf("Lookup String: %17s ", str); */
+    printf("Lookup String: %17s ", str);
+    
+    gettimeofday(&start_time, 0);
 
-//    printf("%u %u", pfind->p_key, addr.s_addr);
+    pfind=pat_search(addr.s_addr, ptrie.phead);
+
+    gettimeofday(&finish_time, 0);
+
+    fpp_util_record_time_taken(start_time, finish_time,
+    			       PATRICIA_TRIES, index);
+
     /*Second condition in this if statement is for Zero masks*/
-    if((pfind->p_key == (addr.s_addr&pfind->p_m->pm_mask))
+    if((pfind->p_key ==
+	(addr.s_addr & pfind->p_m->pm_mask))
        &&(pfind->p_m->pm_mask != 0)) {
-	r_addr.s_addr = pfind->p_key;
-	inet_ntop(AF_INET, &(r_addr), str, INET_ADDRSTRLEN);
-	/* printf("Return String: %17s ", str); */
-	printf("Patricia Found.\n");
+	printf("Next Hop: ");
+	fpp_util_print_in_addr(
+	    ((struct in_addr *)pfind->p_m->pm_data)->s_addr);
     } else {
-	r_addr.s_addr = pfind->p_key;
-	inet_ntop(AF_INET, &(r_addr), str, INET_ADDRSTRLEN);
-	/* printf("Return String: %17s ", str); */
-	printf("Patricia Routing miss\n");
+	printf("Routing Hit miss\n");
     }
 }

@@ -110,7 +110,7 @@ unsigned int fpp_util_prefix_to_mask(uint32_t prefix)
 	perror("Prefix to mask conversion error");
 	exit(1);
     }
-    printf(" MASK: 0x%x ", mask);
+    
     return mask;
     /*TODO fix it*/
 //    mask = mask | fpp_util_get_rem_mask(remainder);
@@ -149,12 +149,12 @@ unsigned int fpp_util_get_rem_mask(unsigned int rem)
     }
     return mask;
 }
-/* void fpp_util_print_addr(unsigned long s_addr) */
-/* { */
-/*     char           str[INET_ADDRSTRLEN]; */
-/*     struct in_addr addr; */
+void fpp_util_print_in_addr(unsigned int s_addr)
+{
+    char           str[INET_ADDRSTRLEN];
+    struct in_addr addr;
 
-/*     addr.s_addr = s_addr; */
-/*     inet_ntop(AF_INET, &(addr), str, INET_ADDRSTRLEN); */
-/*     printf("Addr: %17s \n", str); */
-/* } */
+    addr.s_addr = s_addr;
+    inet_ntop(AF_INET, &(addr), str, INET_ADDRSTRLEN);
+    printf(" %17s \n", str);
+}

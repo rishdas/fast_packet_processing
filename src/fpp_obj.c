@@ -84,3 +84,13 @@ struct ptree* fpp_obj_new_ptree()
     bzero(phead->p_m->pm_data, sizeof(*phead->p_m->pm_data));
     return phead;
 }
+struct in_addr *fpp_obj_new_in_addr(struct in_addr addr)
+{
+    struct in_addr *addr_p;
+
+    addr_p = (struct in_addr *)fpp_malloc(sizeof(addr));
+
+    *addr_p = addr;
+
+    return addr_p;
+}

@@ -18,7 +18,8 @@
 #define MAX_LOOKUP_ENTRY 200
 
 typedef enum lpm_algo_ {
-    UNIBIT_TRIES
+    UNIBIT_TRIES,
+    PATRICIA_TRIES
 }lpm_algo_t;
 
 /*Structures*/
